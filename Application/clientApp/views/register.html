@@ -1,0 +1,72 @@
+﻿<div class="single-widget-container" ng-controller="registerController">
+    <section class="widget login-widget">
+        <header class="text-align-center">
+            <div ng-hide="message == ''" ng-class="(isError) ? 'alert alert-danger' : ''" style="padding:5px; margin-bottom:-15px;">
+                <h4>{{message}}</h4>
+            </div>
+        </header>
+        <div class="body">
+            <form class="form-login no-margin" role="form" name="registerForm">
+                <fieldset>
+                    <div class="form-group no-margin">
+                        <label for="username">Username</label>
+
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-addon">
+                                <i class="fa fa-user"></i>
+                            </span>
+                            <input id="username" name="userName" type="text" required pattern="\w+" data-ng-model="registerData.userName" class="form-control input-lg"
+                                   placeholder="Username">
+                        </div>
+                        <span ng-show="registerForm.userName.$error.required">
+                            Username is required and cannot contain whitespace
+                        </span>
+                    </div>
+                    <div class="form-group no-margin">
+                        <label for="password">Email</label>
+
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-addon">
+                                <i class="fa fa-envelope"></i>
+                            </span>
+                            <input id="email" name="email" type="email" required data-ng-model="registerData.email" class="form-control input-lg"
+                                   placeholder="Email">
+                        </div>
+                        <span ng-show="registerForm.email.$error.required">
+                            Email is required, and must be a valid email address
+                        </span>
+
+                    </div>
+                    <div class="form-group no-margin">
+                        <label for="password">Name</label>
+
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-addon">
+                                <i class="fa fa-info-circle"></i>
+                            </span>
+                            <input id="name" name="name" type="text" required data-ng-model="registerData.name" class="form-control input-lg"
+                                   placeholder="Name">
+                        </div>
+                        <span ng-show="registerForm.email.$error.required">
+                            Name is required
+                        </span>
+
+                    </div>
+                    <div password-verify data-ng-model="registerdata.confirmpassword" form-name="registerForm"></div>
+                </fieldset>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-block btn-lg btn-danger" data-ng-click="register()" data-ng-disabled="registerForm.$invalid">
+                        <span class="small-circle"><i class="fa fa-caret-right"></i></span>
+                        <small>Register</small>
+                    </button>
+                    <div class="forgot"><a class="forgot" href="#/login">Back to login</a></div>
+                </div>
+            </form>
+        </div>
+        <footer>
+            <!--<div class="facebook-login">
+                <a href="index.html"><span><i class="fa fa-facebook-square fa-lg"></i> LogIn with Facebook</span></a>
+            </div>-->
+        </footer>
+    </section>
+</div>

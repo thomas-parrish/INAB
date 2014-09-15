@@ -1,0 +1,224 @@
+﻿<!DOCTYPE html>
+<html ng-app="INAB" ng-controller="IndexController">
+<head>
+    <title>INAB - (BICAYNAB)</title>
+    <link href="/content/css/application.min.css" rel="stylesheet">
+    <link href="/content/ng-grid.min.css" rel="stylesheet" />
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="img/favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta charset="utf-8">
+</head>
+<body class="background-dark noselect">
+
+    <div class="logo hidden-sm hidden-xs">
+        <h4><strong>INAB</strong> - <small>(but I can't afford YNAB)</small></h4>
+    </div>
+    <div class="wrap">
+        <header class="page-header" ng-hide="!(authentication.isAuth)">
+            <div class="navbar">
+                <h4 class="visible-sm visible-xs pull-left"><strong>INAB</strong> - <small>(but I can't afford YNAB)</small></h4>
+                <ul class="nav navbar-nav navbar-right pull-right">
+                    <!--<li class="dropdown">
+                    <a href="#" title="8 support tickets"
+                       class="dropdown-toggle"
+                       data-toggle="dropdown">
+                        <i class="fa fa-group"></i>
+                        <span class="count">8</span>
+                    </a>
+
+                    <ul id="support-menu" class="dropdown-menu support" role="menu">
+                        <li role="presentation">
+                            <a href="#" class="support-ticket">
+                                <div class="picture">
+                                    <span class="label label-important"><i class="fa fa-bell-o"></i></span>
+                                </div>
+                                <div class="details">
+                                    Check out this awesome ticket
+                                </div>
+                            </a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#" class="support-ticket">
+                                <div class="picture">
+                                    <span class="label label-warning"><i class="fa fa-question-circle"></i></span>
+                                </div>
+                                <div class="details">
+                                    "What is the best way to get ...
+                                </div>
+                            </a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#" class="support-ticket">
+                                <div class="picture">
+                                    <span class="label label-success"><i class="fa fa-tag"></i></span>
+                                </div>
+                                <div class="details">
+                                    This is just a simple notification
+                                </div>
+                            </a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#" class="support-ticket">
+                                <div class="picture">
+                                    <span class="label label-info"><i class="fa fa-info-circle"></i></span>
+                                </div>
+                                <div class="details">
+                                    12 new orders has arrived today
+                                </div>
+                            </a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#" class="support-ticket">
+                                <div class="picture">
+                                    <span class="label label-important"><i class="fa fa-plus"></i></span>
+                                </div>
+                                <div class="details">
+                                    One more thing that just happened
+                                </div>
+                            </a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#" class="text-align-center see-all">
+                                See all tickets <i class="fa fa-arrow-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </li>-->
+                    <!--Support menu, for notifications later-->
+
+                    <li class="hidden-xs dropdown">
+                        <a href="" title="Account" id="account"
+                           class="dropdown-toggle"
+                           data-toggle="#account-menu">
+                            <i class="fa fa-user"></i>
+                        </a>
+                        <ul id="account-menu" class="dropdown-menu account" role="menu">
+                            <li role="presentation" class="account-picture">
+                                <img src="/Content/img/2.jpg" alt="">
+                                {{name}}
+                            </li>
+                            <li role="presentation">
+                                <a href="#/profile" class="link">
+                                    <i class="fa fa-user"></i>
+                                    My Profile
+                                </a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#/household" class="link">
+                                    <i class="fa fa-calendar"></i>
+                                    My Household
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="visible-xs">
+                        <a href="#"
+                           class="btn-navbar"
+                           data-toggle="collapse"
+                           data-target=".sidebar"
+                           title="">
+                            <i class="fa fa-bars"></i>
+                        </a>
+                    </li>
+                    <li class="hidden-xs"><a href="" ng-click="logout()"><i class="fa fa-sign-out"></i></a></li>
+                </ul>
+            </div>
+        </header>
+        <div class="content container">
+            <div ng-view="">
+            </div>
+        </div>
+
+        <div class="loader-wrap hiding hide">
+            <i class="fa fa-spinner fa-spin"></i>
+        </div>
+    </div>
+    <nav id="sidebar" class="sidebar nav-collapse collapse" ng-hide="!(authentication.isAuth)">
+        <ul id="side-nav" class="side-nav">
+            <li class="panel">
+                <a href="#/dashboard"><i class="fa fa-home"></i> <span class="name">Dashboard</span></a>
+            </li>
+            <li class="panel">
+                <a href="#/accounts"><i class="fa fa-bank"></i><span class="name">Accounts</span></a>
+                <!--<a class="accordion-toggle collapsed" data-toggle="collapse"
+                    data-parent="#side-nav" data-target="#accounts-collapse"><i class="fa fa-bank"></i><span class="name">Accounts</span></a>
+                <ul id="accounts-collapse" class="panel-collapse collapse">
+                    <li><a href="#/accounts">Overview</a></li>
+                    <li><a href="#/accounts/create">Create</a></li>
+                </ul>-->
+            </li>
+            <li class="visible-xs">
+                <a href="" ng-click="logout()"><i class="fa fa-sign-out"></i> <span class="name">Sign Out</span></a>
+            </li>
+        </ul>
+
+    </nav>
+
+    <!-- jquery and friends -->
+    <script src="/content/lib/jquery/jquery-2.1.1.min.js"></script>
+    <script src="/Scripts/jquery-ui-1.11.1.js"></script>
+
+    <!-- AngularJS and libraries-->
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.min.js"></script>
+    <script src="/Content/lib/angularJS/angular-route.min.js"></script>
+    <script src="/Content/lib/angularJS/ng-grid.js"></script>
+    <script src="/Content/lib/angularJS/angular-localStorage.min.js"></script>
+    <script src="/Content/lib/angularJS/loading-bar.min.js"></script>
+
+    <script src="/Scripts/angular-ui/ui-bootstrap.min.js"></script>
+    <script src="/Scripts/angular-ui/ui-bootstrap-tpls.min.js"></script>
+
+    <!-- Angular App-->
+    <script src="clientApp/appStartup.js"></script>
+
+    <!-- controllers -->
+    <script src="clientApp/controllers/dashboardController.js"></script>
+    <script src="clientApp/controllers/indexController.js"></script>
+    <script src="clientApp/controllers/loginController.js"></script>
+    <script src="clientApp/controllers/registerController.js"></script>
+    <script src="clientApp/controllers/accountsController.js"></script>
+
+    <!-- services -->
+    <script src="clientApp/services/authService.js"></script>
+    <script src="clientApp/services/authInterceptorService.js"></script>
+
+    <!-- directives -->
+    
+
+
+
+    <!-- jquery plugins -->
+    <script src="/content/lib/icheck.js/jquery.icheck.js"></script>
+    <script src="/content/lib/sparkline/jquery.sparkline.js"></script>
+    <script src="/content/lib/jquery-ui-1.10.3.custom.js"></script>
+    <script src="/content/lib/jquery.slimscroll.js"></script>
+
+    <!-- d3, nvd3-->
+    <script src="/content/lib/nvd3/lib/d3.v2.js"></script>
+    <script src="/content/lib/nvd3/nv.d3.custom.js"></script>
+
+    <!-- nvd3 models -->
+    <script src="/content/lib/nvd3/src/models/scatter.js"></script>
+    <script src="/content/lib/nvd3/src/models/axis.js"></script>
+    <script src="/content/lib/nvd3/src/models/legend.js"></script>
+    <script src="/content/lib/nvd3/src/models/multiBar.js"></script>
+    <script src="/content/lib/nvd3/src/models/multiBarChart.js"></script>
+    <script src="/content/lib/nvd3/src/models/line.js"></script>
+    <script src="/content/lib/nvd3/src/models/lineChart.js"></script>
+    <script src="/content/lib/nvd3/stream_layers.js"></script>
+
+    <!-- bootstrap default plugins -->
+    <script src="/content/lib/bootstrap/transition.js"></script>
+    <script src="/content/lib/bootstrap/collapse.js"></script>
+    <script src="/content/lib/bootstrap/alert.js"></script>
+    <script src="/content/lib/bootstrap/tooltip.js"></script>
+    <script src="/content/lib/bootstrap/popover.js"></script>
+    <script src="/content/lib/bootstrap/button.js"></script>
+    <script src="/content/lib/bootstrap/tab.js"> </script>
+    <script src="/content/lib/bootstrap/dropdown.js"></script>
+
+</body>
+</html>

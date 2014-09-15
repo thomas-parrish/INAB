@@ -1,0 +1,165 @@
+﻿<div>
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="page-title"><i class="fa fa-line-chart"></i>&nbsp; Dashboard <small>Statistics and more</small></h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <section class="widget large">
+                <header>
+                    <h4>
+                        Account Overviews
+                    </h4>
+                    <div class="actions">
+                        <button class="btn btn-transparent btn-xs" ng-click="getAccountOverviews()">Refresh &nbsp;<i class="fa fa-refresh"></i></button>
+                    </div>
+                </header>
+                <div class="body no-margin">
+                    <table class="table table-hover table-responsive">
+                        <thead>
+                            <tr>
+                                <th>Account</th>
+                                <th>Owner</th>
+                                <th>Balance</th>
+                                <th class="text-align-right">Reconciled Balance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="overview in accountOverviews" style="background-color: rgba(51,51,51,0.25); border-bottom: 1px solid;">
+                                <td>{{ overview.accountName }}</td>
+                                <td>{{ overview.ownerName }}</td>
+                                <td ng-class="overview.balance < 0 ? 'color-red' : 'color-green' ">{{ overview.balance | currency : '$'}}</td>
+                                <td ng-class="overview.balance < 0 ? 'color-red' : 'color-green' ">{{ overview.reconciledBalance | currency : '$'}}</td>
+                            </tr>
+                        </tbody>
+                    </table>       
+                </div>
+            </section>
+        </div>
+        <div class="col-md-8">
+            <section class="widget large">
+                <header>
+                    <h4>
+                        Recent Transactions
+                        <span class="label label-success">{{recentTransactions.length}}</span>
+                    </h4>
+                    <div class="actions">
+                        <button class="btn btn-transparent btn-xs" ng-click="getTransactions()">Refresh &nbsp;<i class="fa fa-refresh"></i></button>
+                    </div>
+                </header>
+                <div class="body">
+                    <table class="table table-hover table-responsive">
+                        <thead>
+                            <tr>
+                                <th>Account</th>
+                                <th>Category</th>
+                                <th>Date</th>
+                                <th>Amount</th>
+                                <th style="width:5%;">Reconciled</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="transaction in recentTransactions" ng-class="transaction.isDeposit ? 'color-green' : 'color-red'" style="
+                                background-color: rgba(51,51,51,0.25); border-bottom: 1px solid;">
+                                <td>{{ transaction.accountName }}</td>
+                                <td>{{ transaction.category }}</td>
+                                <td>{{ transaction.date | date}}</td>
+                                <td><span ng-if="!transaction.isDeposit">(</span>{{ transaction.amount | currency : '$'}}<span ng-if ="!transaction.isDeposit">)</span></td>
+                                <td style="padding-right:25px; font-size:18px;">
+                                    <i ng-if="transaction.isReconciled" class="fa fa-check pull-right"></i>
+                                    <i ng-if="!transaction.isReconciled" class="fa fa-times pull-right"></i>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>       
+                </div>
+            </section>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <section class="widget">
+                <header>
+                    <h4>
+                        Traffic Sources
+                        <small>
+                            One month tracking
+                        </small>
+                    </h4>
+                    <div class="widget-controls">
+                        <a data-widgster="expand" title="Expand" href="#"><i class="glyphicon glyphicon-plus"></i></a>
+                        <a data-widgster="collapse" title="Collapse" href="#"><i class="glyphicon glyphicon-minus"></i></a>
+                        <a data-widgster="close" title="Close" href="#"><i class="glyphicon glyphicon-remove"></i></a>
+                    </div>
+                </header>
+                <div class="body">
+                    <table class="table table-striped no-margin sources-table">
+                        <thead>
+                            <tr>
+                                <th class="source-col-header">Source</th>
+                                <th>Amount</th>
+                                <th>Change</th>
+                                <th class="hidden-xs">Percent.,%</th>
+                                <th>Target</th>
+                                <th class="chart-col-header hidden-xs">Trend</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="label label-important">Direct</span></td>
+                                <td>713</td>
+                                <td><strong class="color-green">+53</strong></td>
+                                <td class="hidden-xs">+12</td>
+                                <td>900</td>
+                                <td class="chart-cell hidden-xs">
+                                    <div id="direct-trend"></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="label label-warning">Refer</span></td>
+                                <td>562</td>
+                                <td><strong>+84</strong></td>
+                                <td class="hidden-xs">+64</td>
+                                <td>500</td>
+                                <td class="chart-cell hidden-xs">
+                                    <div id="refer-trend"></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="label label-success">Social</span></td>
+                                <td>148</td>
+                                <td><strong class="color-red">-12</strong></td>
+                                <td class="hidden-xs">+3</td>
+                                <td>180</td>
+                                <td class="chart-cell hidden-xs">
+                                    <div id="social-trend"></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="label label-info">Search</span></td>
+                                <td>653</td>
+                                <td><strong class="color-green">+23</strong></td>
+                                <td class="hidden-xs">+43</td>
+                                <td>876</td>
+                                <td class="chart-cell hidden-xs">
+                                    <div id="search-trend"></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="label label-inverse">Internal</span></td>
+                                <td>976</td>
+                                <td><strong>+101</strong></td>
+                                <td class="hidden-xs">-7</td>
+                                <td>844</td>
+                                <td class="chart-cell hidden-xs">
+                                    <div id="internal-trend"></div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
