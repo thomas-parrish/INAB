@@ -170,6 +170,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\ControllerAccess\IAccountsAccess.cs" />
+    <Compile Include="Infrastructure\ControllerAccess\IProfileAccess.cs" />
     <Compile Include="Models\ResultModels\AccountOverview.cs" />
     <Compile Include="Models\ResultModels\NewAccount.cs" />
     <Compile Include="Models\ResultModels\RecentTransaction.cs" />
@@ -198,12 +199,15 @@
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="WebAPI\Controllers\ProfileController.cs" />
+    <Compile Include="Models\ResultModels\ProfileData.cs" />
     <Compile Include="WebAPI\Controllers\UserAccountController.cs" />
     <Compile Include="WebAPI\Controllers\AccountsController.cs" />
     <Compile Include="WebAPI\Controllers\DashboardController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Application\clientApp\controllers\accountsController.js" />
+    <Content Include="Application\clientApp\controllers\profileController.js" />
     <Content Include="Application\clientApp\controllers\dashboardController.js" />
     <Content Include="Application\clientApp\controllers\indexController.js" />
     <Content Include="Application\clientApp\controllers\loginController.js" />
@@ -211,6 +215,7 @@
     <Content Include="Application\clientApp\directives\templates\passwordVerifyTemplate.html" />
     <Content Include="Application\clientApp\services\authInterceptorService.js" />
     <Content Include="Application\clientApp\services\authService.js" />
+    <Content Include="Application\clientApp\views\profile.html" />
     <Content Include="Application\clientApp\views\transactions.html" />
     <Content Include="Application\clientApp\views\accounts.html" />
     <Content Include="Application\clientApp\views\dashboard.html" />

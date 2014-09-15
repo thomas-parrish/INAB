@@ -17,6 +17,11 @@ app.config(function ($routeProvider) {
         templateUrl: "/Application/clientApp/views/register.html"
     });
 
+    $routeProvider.when("/profile", {
+        controller: "profileController",
+        templateUrl: "/Application/clientApp/views/profile.html"
+    });
+
     $routeProvider.when("/accounts", {
         controller: "accountsController",
         templateUrl: "/Application/clientApp/views/accounts.html"
