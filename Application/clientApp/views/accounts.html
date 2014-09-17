@@ -17,7 +17,7 @@
             <tbody>
                 <tr ng-repeat-start="overview in accountOverviews" style="background-color: rgba(51,51,51,0.25); border-bottom: 1px solid;"
                     ng-click="toggleAccountTransactions(overview.accountId)" >
-                    <td>{{ overview.accountName }}</td>
+                    <td><a href="#accounts/{{overview.accountId}}/transactions">{{ overview.accountName }}</a></td>
                     <td>{{ overview.ownerName }}</td>
                     <td ng-class="overview.balance < 0 ? 'color-red' : 'color-green' ">{{ overview.balance | currency : '$'}}</td>
                     <td class="text-align-right"  ng-class="overview.balance < 0 ? 'color-red' : 'color-green' ">{{ overview.reconciledBalance | currency : '$'}}</td>

@@ -15,7 +15,7 @@ app.controller('profileController', ['$scope', '$location', 'authService', '$tim
 
     $scope.submitProfileChanges = function () {
 
-        $http.post('/api/SubmitProfileChanges', {profileData : $scope.profileData})
+        $http.post('/api/Profile/SubmitProfileChanges', {profileData : $scope.profileData})
         .success(function (data, status, headers, config) {
             $scope.getProfileData();
         })

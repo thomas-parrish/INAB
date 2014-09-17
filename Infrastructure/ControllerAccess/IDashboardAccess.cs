@@ -11,7 +11,7 @@ namespace INAB.Infrastructure.DataAccess
 {
     public interface IDashboardAccess
     {
-        Task<List<RecentTransaction>> GetRecentTransactions(int HouseholdId, int NumTransactiosn = 5, int HowRecent = 7);
+        Task<List<RecentTransaction>> GetRecentTransactions(int HouseholdId, int? NumTransactions, int? HowRecent);
         Task<List<AccountOverview>> GetAccountOverviews(int HouseholdId);
     }
 }

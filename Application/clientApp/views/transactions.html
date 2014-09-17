@@ -1,71 +1,101 @@
-﻿<h2 class="page-title"><i class="fa fa-list-alt"></i>&nbsp;Accounts <small>and overview</small></h2>
-<div class="actions">
-    <button class="btn btn-transparent btn-xs" ng-click="showAddTransaction=!showAddTransaction">New Transaction &nbsp;<i class="fa fa-plus"></i></button>
-</div>
-
-<div class="row">
-    <div class="col-md-10">
-        <table class="table table-hover table-responsive">
-            <thead>
-                <tr>
-                    <th>Account</th>
-                    <th>Category</th>
-                    <th>Date</th>
-                    <th>Amount</th>
-                    <th style="width:5%;">Reconciled</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="transaction in recentTransactions[overview.accountId].transactions" ng-class="transaction.isDeposit ? 'color-green' : 'color-red'" style="
-                            background-color: rgba(51,51,51,0.25); border-bottom: 1px solid;">
-                    <td>{{ transaction.accountName }}</td>
-                    <td>{{ transaction.category }}</td>
-                    <td>{{ transaction.date | date }}</td>
-                    <td>{{ transaction.amount | currency : '$' }}</td>
-                    <td style="padding-right:25px; font-size:18px;">
-                        <i ng-if="transaction.isReconciled" class="fa fa-check pull-right"></i>
-                        <i ng-if="!transaction.isReconciled" class="fa fa-times pull-right"></i>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+﻿<div>
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="page-title"><i class="fa fa-credit-card"></i>&nbsp; Transactions <small>{{ accountName }}</small></h2>
+        </div>
     </div>
-    <div class="col-md-2">
-        <form name="newAccount" ng-show="showAddTransaction">
-            <table class="table table-responsive">
-                <thead>
-                    <tr>
-                        <td colspan="2">
-                            <h4>New Transaction</h4>
-                        </td>
-                    </tr>
-                </thead>
-                <tbody style="background-color: rgba(51,51,51,0.25); border-bottom: 1px solid;">
-                    <tr>
-                        <td>
-                            <!--Add server validation token here-->
-                            <input hidden />
-                            <label class="label">Name</label>
-                        </td>
-                        <td class="text-align-right">
-                            <input type="text" name="newAccount.name" ng-model="newAccount.name" /><br />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label class="label">Amount</label>
-                        </td>
-                        <td class="text-align-right">
-                            <input type="number" step=".01" name="newAccount.initialBalance" ng-model="newAccount.initialBalance" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">
-                            <button ng-click="postNewAccount(1)" class="btn btn-primary pull-right" ng-disabled="newAccount.$invalid || newAccount.name == null || newAccount.initialBalance == null">Submit</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </form>
+    <div class="row">
+        <div class="col-md-3">
+            <section class="widget" style="height:500px;">
+                <header>
+                    <h4>
+                        Create / Edit Transaction
+                    </h4>
+                </header>
+                <div class="body">
+                    <div class="widget" style="height:100%;">
+                        <div class="input-group-lg">
+                            <label for="description">Description</label><br />
+                            <input type="text" style="width:100%;" />
+                        </div>
+                        <div class="input-group-lg">
+                            <label for="description">Amount</label><br />
+
+                            <div class="input-group">
+                                <span class="btn btn-success input-group-addon">$</span><input type="number" step=".01" style="width:100%;" />
+                                <span class="btn btn-success input-group-addon">+</span>
+                            </div>
+                        </div>                   
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="col-md-9">
+            <section class="widget" style="height:500px;">
+                <header>
+                    <h4>
+                        Transactions
+                        <span class="label label-success">{{transactions.length}}</span>
+                    </h4>
+                    <div class="actions">
+                        <button class="btn btn-transparent btn-xs" ng-click="testAdd()">Refresh &nbsp;<i class="fa fa-refresh"></i></button>
+                    </div>
+                </header>
+                <div class="body">
+                    <table class="table table-hover table-responsive" st-table="displayTransactions" st-safe-src="transactions">
+                        <thead>
+                            <tr>
+                                <th>Actions</th>
+                                <th st-sort="">Category</th>
+                                <th st-sort="createdOn">Created on</th>
+                                <th>Updated on</th>
+                                <th st-sort="amount">Amount</th>
+                                <th style="width:5%;">Reconciled</th>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <th>
+                                    <input st-search="category" placeholder="Category.." class="input-sm form-control" type="search" />
+                                </th>
+                                <th>
+                                    <input st-search="createdOn" placeholder="Created.." class="input-sm form-control" type="search" />
+                                </th>
+                                <th>
+                                    <input st-search="updatedOn" placeholder="Updated.." class="input-sm form-control" type="search" />
+                                </th>
+                                <th>
+                                    <input st-search="amount" placeholder="Amount.." class="input-sm form-control" type="search" />
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="transaction in displayTransactions" ng-class="transaction.isDeposit ? 'color-green' : 'color-red'" style="
+                                background-color: rgba(51,51,51,0.25); border-bottom: 1px solid;">
+                                <td>
+                                    <button class="btn btn-sm btn-success">Edit</button>
+                                    <button class="btn btn-sm btn-danger">Delete</button>
+                                </td>
+                                <td>{{ categories[transaction.categoryId].name }}</td>
+                                <td>{{ transaction.createdOn | date}}</td>
+                                <td>{{ transaction.updatedOn | date}}</td>
+                                <td><span ng-if="!transaction.isDeposit">(</span>{{ transaction.amount | currency : '$'}}<span ng-if="!transaction.isDeposit">)</span></td>
+                                <td style="padding-right:25px; font-size:18px;">
+                                    <i ng-if="transaction.isReconciled" class="fa fa-check pull-right"></i>
+                                    <i ng-if="!transaction.isReconciled" class="fa fa-times pull-right"></i>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="5" class="text-center">
+                                    <div st-pagination="" st-items-by-page="7" st-displayed-pages="7"></div>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </section>
+        </div>
     </div>
 </div>

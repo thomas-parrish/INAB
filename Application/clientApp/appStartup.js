@@ -1,4 +1,4 @@
-﻿var app = angular.module('INAB', ['ngRoute', 'ngGrid', 'LocalStorageModule', 'angular-loading-bar', 'ui.bootstrap']);
+﻿var app = angular.module('INAB', ['ngRoute', 'LocalStorageModule', 'angular-loading-bar', 'ui.bootstrap', 'smart-table']);
 
 app.config(function ($routeProvider) {
 
@@ -20,6 +20,16 @@ app.config(function ($routeProvider) {
     $routeProvider.when("/profile", {
         controller: "profileController",
         templateUrl: "/Application/clientApp/views/profile.html"
+    });
+
+    $routeProvider.when("/household", {
+        controller: "householdController",
+        templateUrl: "/Application/clientApp/views/household.html"
+    });
+
+    $routeProvider.when("/accounts/:accountId/transactions", {
+        controller: "transactionsController",
+        templateUrl: "/Application/clientApp/views/transactions.html"
     });
 
     $routeProvider.when("/accounts", {

@@ -20,35 +20,40 @@ using INAB.Models.ResultModels;
 
 namespace INAB.WebAPI.Controllers
 {
-    [RoutePrefix("api/Dashboard")]
-    public class DashboardController : ApiController
+    [RoutePrefix("api/Transactions")]
+    public class TransactionsController : ApiController
     {
-        private IDashboardAccess db;
+        private ITransactionsAccess db;
         private ApplicationUserManager um;
         // GET: api/Dashboard
 
-        public DashboardController()
+        public TransactionsController()
         {
-            db = HttpContext.Current.GetOwinContext().Get<SqlConnection>().As<IDashboardAccess>();
+            db = HttpContext.Current.GetOwinContext().Get<SqlConnection>().As<ITransactionsAccess>();
             um = HttpContext.Current.GetOwinContext().Get<ApplicationUserManager>();
         }
         
         [Authorize]
-        [Route("GetRecentTransactions")]
-        public async Task<List<RecentTransaction>> GetRecentTransactions()
+        [Route("GetAllTransactions")]
+        public async Task<List<Transaction>> GetAllTransactions(int AccountId)
         {
-            var username = HttpContext.Current.User.Identity.Name;
-            var user = await um.FindByNameAsync(username);
-            return await db.GetRecentTransactions(user.HouseholdId, 5, 14);
+            return await db.GetAllTransactions(AccountId);
         }
 
         [Authorize]
-        [Route("GetAccountOverviews")]
-        public async Task<List<AccountOverview>> GetAccountOverviews()
+        [Route("GetCategories")]
+        public async Task<Dictionary<int, Object>> GetCategories()
         {
-            var username = HttpContext.Current.User.Identity.Name;
-            var user = await um.FindByNameAsync(username);
-            return await db.GetAccountOverviews(user.HouseholdId);
+            var categoryArray = await db.GetCategories();
+            //Not sure if it's ok to do this here, or if I should do this in javascript
+            Dictionary<int, Object> categoryDict = new Dictionary<int, object>();
+
+            foreach(var category in categoryArray)
+            {
+                categoryDict.Add(category.Id, new { name = category.Name, description = category.Description });
+            }
+
+            return categoryDict;
         }
 
         // POST: api/Dashboard

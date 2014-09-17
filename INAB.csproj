@@ -169,7 +169,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\ControllerAccess\ITransactionsAccess.cs" />
     <Compile Include="Infrastructure\ControllerAccess\IAccountsAccess.cs" />
+    <Compile Include="Infrastructure\ControllerAccess\IHouseholdAccess.cs" />
     <Compile Include="Infrastructure\ControllerAccess\IProfileAccess.cs" />
     <Compile Include="Models\ResultModels\AccountOverview.cs" />
     <Compile Include="Models\ResultModels\NewAccount.cs" />
@@ -199,6 +201,8 @@
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="WebAPI\Controllers\TransactionsController.cs" />
+    <Compile Include="WebAPI\Controllers\HouseholdController.cs" />
     <Compile Include="WebAPI\Controllers\ProfileController.cs" />
     <Compile Include="Models\ResultModels\ProfileData.cs" />
     <Compile Include="WebAPI\Controllers\UserAccountController.cs" />
@@ -207,6 +211,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Application\clientApp\controllers\accountsController.js" />
+    <Content Include="Application\clientApp\controllers\transactionsController.js" />
+    <Content Include="Application\clientApp\controllers\householdController.js" />
     <Content Include="Application\clientApp\controllers\profileController.js" />
     <Content Include="Application\clientApp\controllers\dashboardController.js" />
     <Content Include="Application\clientApp\controllers\indexController.js" />
@@ -215,6 +221,8 @@
     <Content Include="Application\clientApp\directives\templates\passwordVerifyTemplate.html" />
     <Content Include="Application\clientApp\services\authInterceptorService.js" />
     <Content Include="Application\clientApp\services\authService.js" />
+    <Content Include="Application\clientApp\views\household.html" />
+    <Content Include="Application\clientApp\views\pager.html" />
     <Content Include="Application\clientApp\views\profile.html" />
     <Content Include="Application\clientApp\views\transactions.html" />
     <Content Include="Application\clientApp\views\accounts.html" />
@@ -222,10 +230,14 @@
     <Content Include="Application\clientApp\views\Login.html" />
     <Content Include="Application\clientApp\views\register.html" />
     <Content Include="Content\css\loading-bar.min.css" />
+    <Content Include="Content\css\ng-table.min.css" />
+    <Content Include="Content\lib\angularJS\angular-datatables.min.js" />
     <Content Include="Content\lib\angularJS\angular-localStorage.min.js" />
     <Content Include="Content\lib\angularJS\angular-route.min.js" />
     <Content Include="Application\clientApp\appStartup.js" />
     <Content Include="Content\lib\angularJS\loading-bar.min.js" />
+    <Content Include="Content\lib\angularJS\ng-table.min.js" />
+    <Content Include="Content\lib\angularJS\smart-table.min.js" />
     <Content Include="Content\lib\jquery\jquery-2.1.1.min.js" />
     <Content Include="Content\ng-grid.css" />
     <Content Include="Content\ng-grid.min.css" />
@@ -1197,6 +1209,7 @@
     <Content Include="Template\white\component_maps.html" />
     <Content Include="Template\white\css\application.commented.css" />
     <Content Include="Template\white\css\application.css" />
+    <Content Include="Content\css\applicationwhite.min.css" />
     <Content Include="Template\white\css\application.min.css" />
     <Content Include="Template\white\css\bootstrap-original\bootstrap.css" />
     <Content Include="Template\white\css\bootstrap-original\responsive.css" />

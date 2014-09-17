@@ -12,7 +12,7 @@ namespace INAB.Infrastructure.DataAccess
     public interface IAccountsAccess
     {
         //For Overview page
-        Task<List<RecentTransaction>> GetRecentTransactionsForAccount(int AccountId, int NumTransactiosn = 5, int HowRecent = 7);
+        Task<List<RecentTransaction>> GetRecentTransactionsForAccount(int AccountId, int? NumTransactions, int? HowRecent);
         Task<List<AccountOverview>> GetAccountOverviews(int HouseholdId);
 
         Task<int> InsertAccountAsync(NewAccount account);

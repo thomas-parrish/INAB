@@ -37,7 +37,7 @@ namespace INAB.WebAPI.Controllers
         [Route("GetRecentTransactionsForAccount")]
         public async Task<List<RecentTransaction>> GetRecentTransactionsForAccount(int AccountId)
         {
-            return await db.GetRecentTransactionsForAccount(AccountId);
+            return await db.GetRecentTransactionsForAccount(AccountId,5,14);
         }
 
         [Authorize]
